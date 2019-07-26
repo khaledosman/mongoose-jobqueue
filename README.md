@@ -1,10 +1,11 @@
 # mongoose-jobqueue
-A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compatible with mongoose v5
+A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compatible with mongoose v5 and the latest mongodb driver.
 
 - Uses ES6 Promise instead of Bluebird
 - Uses object spread instead of underscore/lodash dependency
 - Compatible with mongoose v5
 - Uses arrow functions instead of `var self = this;`
+- Creates Mongodb indexes for optimal performance
 
 # mongoose-jobqueue
 
