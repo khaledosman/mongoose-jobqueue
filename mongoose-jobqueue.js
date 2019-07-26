@@ -72,10 +72,12 @@ class JobQueueHelper {
         default: 0
       },
       ack: {
-        type: String
+        type: String,
+        index: true
       },
       deleted: {
-        type: Date
+        type: Date,
+        index: true
       },
       progress: {
         type: Number
@@ -83,6 +85,9 @@ class JobQueueHelper {
     }, {
       collection: name
     })
+
+    schema.index({ ack: 1, deleted: -1 })
+    schema.index({ visible: -1, deleted: -1 })
 
     // Attach virtual properties
     schema.virtual('inFlight').get(function () {
@@ -162,7 +167,7 @@ class JobQueueHelper {
 
     const docs = []
 
-    for (let d of doc) {
+    for (const d of doc) {
       if (d.toObject) {
         docs.push(d.toObject({ getters: true, versionKey: false }))
       } else {
@@ -524,7 +529,7 @@ class JobQueue {
         }
       }
 
-      this.queue.remove(query).then((result) => {
+      this.queue.deleteMany(query).then((result) => {
         if (!result) {
           reject(new Error('MongoDB result was empty.'))
           return
@@ -552,7 +557,7 @@ class JobQueue {
         return
       }
 
-      this.deadQueue.remove().then((result) => {
+      this.deadQueue.deleteMany().then((result) => {
         if (!result) {
           reject(new Error('MongoDB result was empty.'))
           return
@@ -591,7 +596,7 @@ class JobQueue {
    */
   reset () {
     return new Promise((resolve, reject) => {
-      this.queue.remove().then((queueResult) => {
+      this.queue.deleteMany().then((queueResult) => {
         if (!queueResult) {
           reject(new Error('MongoDB result was empty.'))
           return
@@ -602,7 +607,7 @@ class JobQueue {
           return
         }
 
-        this.deadQueue.remove().then((deadQueueResult) => {
+        this.deadQueue.deleteMany().then((deadQueueResult) => {
           if (!deadQueueResult) {
             reject(new Error('MongoDB result was empty.'))
             return
