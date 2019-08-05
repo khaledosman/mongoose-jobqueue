@@ -5,7 +5,7 @@ A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compat
 - Uses object spread instead of underscore/lodash dependency
 - Compatible with mongoose v5
 - Uses arrow functions instead of `var self = this;`
-- Creates Mongodb indexes for optimal performance
+- Creates Mongodb indexes for faster access and query performance
 
 # mongoose-jobqueue
 
