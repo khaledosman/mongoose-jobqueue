@@ -305,7 +305,8 @@ class JobQueue {
         sort: {
           _id: 1 // Sort by _id
         },
-        new: true // Return the updated document as result
+        new: true, // Return the updated document as result
+        lean: true
       }
 
       // CosmosDB does not support sorting on update
@@ -376,7 +377,8 @@ class JobQueue {
       const options = {
         sort: {
           _id: 1 // Sort by _id
-        }
+        },
+        lean: true
       }
 
       this.queue.findOne(query, null, options).then((job) => {
@@ -432,7 +434,8 @@ class JobQueue {
         sort: {
           _id: 1
         },
-        new: true
+        new: true,
+        lean: true
       }
 
       // CosmosDB does not support sorting
@@ -476,7 +479,8 @@ class JobQueue {
         sort: {
           _id: 1
         },
-        new: true
+        new: true,
+        lean: true
       }
 
       // CosmosDB does not support sorting
@@ -582,7 +586,7 @@ class JobQueue {
     }
 
     return new Promise((resolve, reject) => {
-      this.queue.find(filter, null, { sort: { _id: 1 } }).then((foundJobs) => {
+      this.queue.find(filter, null, { sort: { _id: 1 }, lean: true }).then((foundJobs) => {
         resolve(JobQueueHelper.prep(foundJobs, this.options.raw))
       }, reject)
     })
