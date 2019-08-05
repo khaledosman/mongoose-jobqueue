@@ -72,12 +72,10 @@ class JobQueueHelper {
         default: 0
       },
       ack: {
-        type: String,
-        index: true
+        type: String
       },
       deleted: {
-        type: Date,
-        index: true
+        type: Date
       },
       progress: {
         type: Number
@@ -87,7 +85,7 @@ class JobQueueHelper {
     })
 
     schema.index({ ack: 1, deleted: -1 })
-    schema.index({ visible: -1, deleted: -1 })
+    schema.index({ deleted: -1, visible: -1 })
 
     // Attach virtual properties
     schema.virtual('inFlight').get(function () {
@@ -310,9 +308,9 @@ class JobQueue {
       }
 
       // CosmosDB does not support sorting on update
-      if (this.options.cosmosDb) {
-        options.sort = undefined
-      }
+      // if (this.options.cosmosDb) {
+      //   options.sort = undefined
+      // }
 
       const update = {
         $set: {
@@ -439,9 +437,9 @@ class JobQueue {
       }
 
       // CosmosDB does not support sorting
-      if (this.options.cosmosDb) {
-        options.sort = undefined
-      }
+      // if (this.options.cosmosDb) {
+      //   options.sort = undefined
+      // }
 
       this.queue.findOneAndUpdate(query, update, options).then((result) => {
         resolve(JobQueueHelper.prep(result, this.options.raw))
@@ -484,9 +482,9 @@ class JobQueue {
       }
 
       // CosmosDB does not support sorting
-      if (this.options.cosmosDb) {
-        options.sort = undefined
-      }
+      // if (this.options.cosmosDb) {
+      //   options.sort = undefined
+      // }
 
       this.queue.findOneAndUpdate(query, update, options).then((result) => {
         if (result === null) {
