@@ -1,4 +1,7 @@
 # mongoose-jobqueue
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/khaledosman/mongoose-jobqueue.svg)](https://greenkeeper.io/)
+
 A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compatible with mongoose v5 and the latest mongodb driver.
 
 - Uses ES6 Promise instead of Bluebird
