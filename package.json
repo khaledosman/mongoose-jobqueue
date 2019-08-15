@@ -50,7 +50,6 @@
   },
   "homepage": "https://github.com/khaledosman/mongoose-jobqueue#readme",
   "dependencies": {
-    "crypto": "^1.0.1",
     "mongoose": "^5.6.9"
   },
   "devDependencies": {
