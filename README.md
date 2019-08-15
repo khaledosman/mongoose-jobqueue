@@ -17,6 +17,7 @@ A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compat
 - Compatible with mongoose v5
 - Uses arrow functions instead of `var self = this;`
 - Creates Mongodb indexes for faster access and query performance
+- uses `.lean()` in mongoose for faster query performance
 
 # mongoose-jobqueue
 
