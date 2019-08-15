@@ -1,6 +1,6 @@
 {
   "name": "fast-mongoose-job-queue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple Job-Queue using mongoosejs",
   "main": "mongoose-jobqueue.js",
   "scripts": {
