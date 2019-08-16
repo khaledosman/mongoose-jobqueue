@@ -244,9 +244,6 @@ Use this option at own risk.
 
 Default: `false`
 
-CosmosDB does not support sorting on a findAndUpdate operation. (as of 2017-08-22)
-Set this option to `true` to get unsorted results.
-
 ## Operations
 
 ### .add()
