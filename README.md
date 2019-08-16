@@ -10,7 +10,7 @@
 [![dependencies Status](https://david-dm.org/khaledosman/mongoose-jobqueue/status.svg)](https://david-dm.org/khaledosman/mongoose-jobqueue)
 [![devDependencies Status](https://david-dm.org/khaledosman/mongoose-jobqueue/dev-status.svg)](https://david-dm.org/khaledosman/mongoose-jobqueue?type=dev)
 
-A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compatible with mongoose v5 and the latest mongodb driver.
+A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compatible with mongoose v5 and the latest mongodb driver and implements performance optimizations for querying mongodb.
 
 - Uses ES6 Promise instead of Bluebird
 - Uses object spread instead of underscore/lodash dependency
