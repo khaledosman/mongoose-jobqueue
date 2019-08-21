@@ -9,9 +9,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![dependencies Status](https://david-dm.org/khaledosman/mongoose-jobqueue/status.svg)](https://david-dm.org/khaledosman/mongoose-jobqueue)
 [![devDependencies Status](https://david-dm.org/khaledosman/mongoose-jobqueue/dev-status.svg)](https://david-dm.org/khaledosman/mongoose-jobqueue?type=dev)
-[![npm](https://img.shields.io/npm/dy/fast-mongoose-job-queue.svg)]()
-
-[![NPM](https://nodei.co/npm/fast-mongoose-job-queue.png?downloads=true)](https://nodei.co/npm/fast-mongoose-job-queue)
+[![npm](https://img.shields.io/npm/dm/fast-mongoose-job-queue.svg)]()
 
 A modernized fork https://www.npmjs.com/package/mongoose-jobqueue that is compatible with mongoose v5 and the latest mongodb driver and implements performance optimizations for querying mongodb.
 
