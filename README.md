@@ -22,6 +22,7 @@ Some of the differences from the original library:
 - Creates Mongodb indexes for faster access and query performance
 - uses `.lean()` in mongoose for faster query performance
 - Supports sorting query results in CosmosDB
+- Maintained & Open-Source with an available repository link.
 
 # mongoose-jobqueue
 
