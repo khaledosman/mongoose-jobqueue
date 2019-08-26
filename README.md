@@ -21,6 +21,7 @@ Some of the differences from the original library:
 - Uses arrow functions instead of `var self = this;`
 - Creates Mongodb indexes for faster access and query performance
 - uses `.lean()` in mongoose for faster query performance
+- Supports sorting query results in CosmosDB
 
 # mongoose-jobqueue
 
