@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.4...v1.0.5) (2019-09-04)
+
+
+### Bug Fixes
+
+* fix bundle size ([636e599](https://github.com/khaledosman/mongoose-jobqueue/commit/636e599))
+
 ## [1.0.4](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.3...v1.0.4) (2019-08-30)
 
 
