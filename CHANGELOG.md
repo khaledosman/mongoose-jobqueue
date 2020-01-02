@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.7...v1.0.8) (2020-01-02)
+
+
+### Bug Fixes
+
+* bump dependencies ([f672ca8](https://github.com/khaledosman/mongoose-jobqueue/commit/f672ca8be7b2fde615dcfc8be0e9d1050531e981))
+
 ## [1.0.7](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.6...v1.0.7) (2019-10-29)
 
 
