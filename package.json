@@ -50,18 +50,18 @@
   },
   "homepage": "https://github.com/khaledosman/mongoose-jobqueue#readme",
   "dependencies": {
-    "mongoose": "^5.8.3"
+    "mongoose": "^5.8.6"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/cli": "^8.3.4",
+    "@commitlint/config-conventional": "^8.3.4",
     "@semantic-release/changelog": "^3.0.6",
     "@semantic-release/commit-analyzer": "^7.0.0",
-    "@semantic-release/git": "^7.0.18",
-    "@semantic-release/npm": "^5.3.5",
+    "@semantic-release/git": "^8.0.0",
+    "@semantic-release/npm": "^6.0.0",
     "@semantic-release/release-notes-generator": "^7.3.5",
     "cz-conventional-changelog": "^3.0.2",
-    "husky": "^4.0.2",
+    "husky": "^4.0.6",
     "semantic-release": "^16.0.0",
     "standard": "^14.3.1"
   }
