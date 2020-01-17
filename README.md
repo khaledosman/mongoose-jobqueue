@@ -34,10 +34,10 @@ A very simple job queue, using [mongoosejs](http://mongoosejs.com) for storage.
 Create a queue object by handing over your mongoose instance:
 
 ```js
-var mongoose          = require('mongoose');
-var mongooseJobQueue  = require('mongoose-jobqueue');
+const mongoose          = require('mongoose');
+const mongooseJobQueue  = require('mongoose-jobqueue');
 
-var queue = mongooseJobQueue(mongoose, 'job-queue');
+const queue = mongooseJobQueue(mongoose, 'job-queue');
 ```
 
 All functions of the queue return a `Promise`.
@@ -45,10 +45,10 @@ All functions of the queue return a `Promise`.
 Add a job to a queue:
 
 ```js
-queue.add({ message: 'Hey' }).then(function(job){
+queue.add({ message: 'Hey' }).then((job) => {
   // Job with payload object added.
   // The created job-object is returned.
-}, function(err){
+}, (err) => {
   // Something went wrong!
 });
 ```
@@ -56,7 +56,7 @@ queue.add({ message: 'Hey' }).then(function(job){
 Get a job from the queue:
 
 ```js
-queue.checkout().then(function(job) {
+queue.checkout().then((job) => {
   // Returns the next job in the queue, or null if queue is empty.
   console.log('job._id=' + job._id);
   console.log('job.ack=' + job.ack);          // Acknowledge key, save for later
@@ -68,7 +68,7 @@ queue.checkout().then(function(job) {
 Ping a job to keep it's visibility open for long-running tasks:
 
 ```js
-queue.ping(job.ack).then(function(job) {
+queue.ping(job.ack).then((job) => {
   // Visibility window now increased for this job.
   // Updated job object is returned.
 })
@@ -78,7 +78,7 @@ When pinging a job we can specify by how many seconds the window is extended,
 and the progress of the job in percent if we want:
 
 ```js
-queue.ping(job.ack, 60, 15).then(function(job) {
+queue.ping(job.ack, 60, 15).then((job) => {
   // Visibility window now increased by 60 seconds. Job is 15% done.
   // Updated job object is returned.
 })
@@ -87,7 +87,7 @@ queue.ping(job.ack, 60, 15).then(function(job) {
 Acknowledge a job (and remove it from the queue):
 
 ```js
-queue.ack(job.ack).then(function(job) {
+queue.ack(job.ack).then((job) => {
   // This job removed from queue for this ack.
   // The acknowledged job is returned.
 })
@@ -97,7 +97,7 @@ By default, all finished jobs are left in the queue, and are only marked as
 deleted. You can call the following function to remove processed jobs:
 
 ```js
-queue.cleanup().then(function(delCount) {
+queue.cleanup().then((delCount) => {
     // All processed (ie. acked) messages have been deleted
     // The number of deleted jobs is returned.
 });
@@ -113,13 +113,13 @@ To create a queue, call the exported function with the Mongoose instance,
 the name of the collection and a set of options.
 
 ```js
-var mongoose          = require('mongoose');
-var mongooseJobQueue  = require('mongoose-jobqueue');
+const mongoose          = require('mongoose');
+const mongooseJobQueue  = require('mongoose-jobqueue');
 
 // an instance of a queue
-var queueA = mongooseJobQueue(mongoose, 'a-queue');
+const queueA = mongooseJobQueue(mongoose, 'a-queue');
 // another queue
-var queueB = mongoDbQueue(mongoose, 'b-queue');
+const queueB = mongoDbQueue(mongoose, 'b-queue');
 ```
 
 Note: You can start using the queue right away, since mongoose stores requests
@@ -128,7 +128,7 @@ until a connection to the MongoDB is established.
 To pass in options for the queue:
 
 ```js
-var myQueue = mongooseJobQueue(mongoose, 'my-queue', {
+const myQueue = mongooseJobQueue(mongoose, 'my-queue', {
     visibility : 30,
     delay : 15
   });
@@ -147,8 +147,8 @@ Each queue you create will be it's own collection.
 e.g.
 
 ```js
-var queueA = mongooseJobQueue(mongoose, 'a-queue');
-var queueB = mongooseJobQueue(mongoose, 'b-queue');
+const queueA = mongooseJobQueue(mongoose, 'a-queue');
+const queueB = mongooseJobQueue(mongoose, 'b-queue');
 ```
 
 This will create two collections in MongoDB called `a-queue` and `b-queue`.
@@ -165,7 +165,7 @@ You may set this visibility window on a per queue basis. For example, to set the
 visibility to 15 seconds:
 
 ```js
-var queue = mongooseJobQueue(mongoose, 'queue', { visibility : 15 });
+const queue = mongooseJobQueue(mongoose, 'queue', { visibility : 15 });
 ```
 
 All jobs in this queue now have a visibility window of 15s, instead of the
@@ -174,9 +174,9 @@ default 30s.
 You can also specify the visibility window when checking out a job of the queue:
 
 ```js
-var queue = mongooseJobQueue(mongoose, 'queue', { visibility : 15 });
+const queue = mongooseJobQueue(mongoose, 'queue', { visibility : 15 });
 
-queue.checkout(90).then(function(job){
+queue.checkout(90).then((job) => {
   // Process the job...
 });
 ```
@@ -196,7 +196,7 @@ checkout 10s after being added.
 To delay all jobs by 10 seconds, do this:
 
 ```js
-var queue = mongooseJobQueue(mongoose, 'queue', { delay : 10 });
+const queue = mongooseJobQueue(mongoose, 'queue', { delay : 10 });
 ```
 
 This is now the default for every job added to the queue.
@@ -211,7 +211,7 @@ you can debug problematic jobs.
 Pass in a collection name onto which these jobs will be pushed:
 
 ```js
-var queue = mongooseJobQueue(mongoose, 'queue', { deadQueue : 'dead-jobs' });
+const queue = mongooseJobQueue(mongoose, 'queue', { deadQueue : 'dead-jobs' });
 ```
 
 If you checkout a job out of the `queue` over `maxRetries` times and have still
@@ -257,7 +257,7 @@ Default: `false`
 You can add a string to the queue:
 
 ```js
-queue.add('Hey').then(function(job) {
+queue.add('Hey').then((job) => {
   // Job with payload 'Hey' added.
   // Created job object is returned.
 });
@@ -266,7 +266,7 @@ queue.add('Hey').then(function(job) {
 Or add an object:
 
 ```js
-queue.add({ message: 'Hey' }).then(function(job) {
+queue.add({ message: 'Hey' }).then((job) => {
   // Job with payload { message: 'Hey' } added.
   // Created job object is returned.
 });
@@ -275,7 +275,7 @@ queue.add({ message: 'Hey' }).then(function(job) {
 Or add multiple jobs (strings or objects):
 
 ```js
-queue.add(['One', 'Two', 'Three']).then(function(jobs) {
+queue.add(['One', 'Two', 'Three']).then(jobs => {
   // Jobs with payloads 'One', 'Two' & 'Three' added.
   // An array of the created job objects is returned.
 });
@@ -284,7 +284,7 @@ queue.add(['One', 'Two', 'Three']).then(function(jobs) {
 You can delay jobs from being visible by passing the second `delay` parameter:
 
 ```js
-queue.add('Later', 120).then(function(job) {
+queue.add('Later', 120).then((job) => {
   // Job with payload 'Later' added.
   // Created job object is returned.
   // This job won't be available for checkout for 120 seconds.
@@ -296,7 +296,7 @@ queue.add('Later', 120).then(function(job) {
 Retrieve a job from the queue:
 
 ```js
-queue.checkout().then(function(job) {
+queue.checkout().then((job) => {
   // You can now process the job
   // IMPORTANT: The message will be null if the queue is empty.
 });
@@ -306,7 +306,7 @@ You can choose the visibility window of an individual retrieved job by passing
 the `visibility` parameter:
 
 ```js
-queue.checkout(90).then(function(job) {
+queue.checkout(90).then((job) => {
   // You can now process the job for 90s before it goes back into the queue.
 });
 ```
@@ -328,10 +328,10 @@ After you have received a job from a queue and processed it, you can delete it
 by calling `.ack()` with the unique `ack` key returned:
 
 ```js
-queue.checkout().then(function(job) {
+queue.checkout().then((job) => {
   // Do some processing...
 
-  queue.ack(job.ack).then(function(job) {
+  queue.ack(job.ack).then((job) => {
       // this job has now been removed from the queue
   });
 });
@@ -344,8 +344,8 @@ to process it, you can `.ping()` the job to tell the queue that you are
 still alive and continuing to process the job:
 
 ```js
-queue.checkout().then(function(job) {
-  queue.ping(job.ack).then(function(job) {
+queue.checkout().then((job) => {
+  queue.ping(job.ack).then((job) => {
     // this job has had it's visibility window extended
   });
 });
@@ -355,8 +355,8 @@ You can also choose the visibility time that gets added by the ping operation by
 passing the `visibility` parameter:
 
 ```js
-queue.checkout().then(function(job) {
-  queue.ping(job.ack, 120).then(function(job) {
+queue.checkout().then((job) => {
+  queue.ping(job.ack, 120).then((job) => {
     // this job has had it's visibility window extended by 120 seconds
   });
 });
@@ -366,8 +366,8 @@ You can pass an optional `progress` parameter, when pinging a job to show the
 progress of your operation in percent:
 
 ```js
-queue.checkout().then(function(job) {
-  queue.ping(job.ack, 120, 12).then(function(job) {
+queue.checkout().then((job) => {
+  queue.ping(job.ack, 120, 12).then((job) => {
     // this job has had it's visibility window extended by 120 seconds
     // The operation is completed by 12%
   });
@@ -378,8 +378,8 @@ Like the `progress` parameter you can pass the `payload` parameter to update the
 payload of a job. This will overwrite the old payload value.
 
 ```js
-queue.checkout().then(function(job) {
-  queue.ping(job.ack, null, null, { message: 'my new payload' }).then(function(job) {
+queue.checkout().then((job) => {
+  queue.ping(job.ack, null, null, { message: 'my new payload' }).then((job) => {
     // Updated job object is returned.
   });
 });
@@ -390,7 +390,7 @@ queue.checkout().then(function(job) {
 Get a list of jobs in the queue. Does not check out any jobs.
 
 ```js
-queue.get().then(function(jobs){
+queue.get().then(jobs => {
   // Returns an array of all jobs in queue, processed or not
 });
 ```
@@ -401,7 +401,7 @@ The filter object follows the MongoDB query syntax.
 ```js
 queue.get({
   deleted: null
-}).then(function(jobs){
+}).then(jobs => {
   // Returns an array of all that are not processed
 });
 ```
@@ -410,7 +410,7 @@ This example returns only unfinished jobs.
 ```js
 queue.get({
   tries: { $gt: 1, $lt: 4 }
-}).then(function(jobs){
+}).then(jobs => {
 
 });
 ```
@@ -419,7 +419,7 @@ This example returns jobs with 2-3 tries.
 ```js
 queue.get({
   'payload.message': 'Hey'
-}).then(function(jobs){
+}).then(jobs => {
 
 });
 ```
@@ -431,7 +431,7 @@ By default, all finished jobs are left in the queue, and are only marked as
 deleted. You can call the `cleanup()` function to remove processed jobs:
 
 ```js
-queue.cleanup().then(function(delCount) {
+queue.cleanup().then(delCount => {
   // All processed (ie. acked) jobs have been deleted.
   // The number of deleted jobs is returned.
 });
@@ -441,7 +441,7 @@ You can specify the minimum age of jobs to be deleted by using the `age`
 parameter:
 
 ```js
-queue.cleanup(120).then(function(delCount) {
+queue.cleanup(120).then(delCount => {
   // All processed (ie. acked) jobs older than 120 seconds have been deleted.
   // The number of deleted jobs is returned.
 });
@@ -453,7 +453,7 @@ Removes all jobs from the deadQueue.
 Unlike the `cleanup()` function, this operation does not have a age parameter.
 
 ```js
-queue.cleanupDead().then(function(delCount) {
+queue.cleanupDead().then(delCount => {
   // All dead jobs have been deleted.
   // The number of deleted jobs is returned.
 });
@@ -465,7 +465,7 @@ Deletes ALL jobs from the queue (and the deadQueue if configured), regardless of
 checked out jobs.
 
 ```js
-queue.reset().then(function(totalDeleted) {
+queue.reset().then(totalDeleted => {
   // Queues are now empty, number of deleted jobs on both queues is returned.
 });
 ```
