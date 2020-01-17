@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.8...v1.0.9) (2020-01-17)
+
+
+### Bug Fixes
+
+* update to mongoose v5.8.7 ([bf2f851](https://github.com/khaledosman/mongoose-jobqueue/commit/bf2f851e43f56c0e5093894f4c2e22f9e8a3f394))
+
 ## [1.0.8](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.7...v1.0.8) (2020-01-02)
 
 
