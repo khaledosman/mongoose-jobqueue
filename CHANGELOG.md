@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.9...v1.0.10) (2020-01-21)
+
+
+### Bug Fixes
+
+* set mongoose as a peerDependency instead of normal dependency ([23d6376](https://github.com/khaledosman/mongoose-jobqueue/commit/23d6376c276eb7d82783da372eb36253a232b233))
+
 ## [1.0.9](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.8...v1.0.9) (2020-01-17)
 
 
