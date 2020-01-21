@@ -1,6 +1,6 @@
 {
   "name": "fast-mongoose-job-queue",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Simple Job-Queue using mongoosejs",
   "main": "mongoose-jobqueue.js",
   "scripts": {
@@ -49,9 +49,10 @@
     "url": "https://github.com/khaledosman/mongoose-jobqueue/issues"
   },
   "homepage": "https://github.com/khaledosman/mongoose-jobqueue#readme",
-  "dependencies": {
-    "mongoose": "^5.8.7"
+  "peerDependencies": {
+    "mongoose": ">=5.8.9"
   },
+  "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
