@@ -88,7 +88,7 @@ class JobQueueHelper {
     schema.index({ deleted: -1, visible: -1 })
 
     // Attach virtual properties
-    schema.virtual('inFlight').get(function () {
+    schema.virtual('inFlight').get(() => {
       if (this.deleted) {
         return false
       }
@@ -263,21 +263,22 @@ class JobQueue {
         })
       }
 
-      this.queue.create(inserts).then((result) => {
-        if (result === null) {
-          reject(new Error('Mongoose returned empty result on creation.'))
-          return
-        }
+      this.queue.create(inserts)
+        .then((result) => {
+          if (result === null) {
+            reject(new Error('Mongoose returned empty result on creation.'))
+            return
+          }
 
-        if (inserts.length > 1) {
-          resolve(JobQueueHelper.prep(result, this.options.raw))
-          return
-        }
+          if (inserts.length > 1) {
+            resolve(JobQueueHelper.prep(result, this.options.raw))
+            return
+          }
 
-        resolve(JobQueueHelper.prep(result[0], this.options.raw))
-      }, (error) => {
-        reject(new Error(error))
-      })
+          resolve(JobQueueHelper.prep(result[0], this.options.raw))
+        }, (error) => {
+          reject(new Error(error))
+        })
     })
   }
 
@@ -322,39 +323,43 @@ class JobQueue {
         }
       }
 
-      this.queue.findOneAndUpdate(query, update, options).then((job) => {
+      this.queue.findOneAndUpdate(query, update, options)
+        .then((job) => {
         // Just resolve if result was empty, nothing more to do here.
-        if (job === null) {
-          resolve(null)
-          return
-        }
+          if (job === null) {
+            resolve(null)
+            return
+          }
 
-        // Check if we have a dead queue, if not, there is no need to check the
-        // maxRetries.
-        if (!this.deadQueue) {
-          resolve(JobQueueHelper.prep(job, this.options.raw))
-          return
-        }
+          // Check if we have a dead queue, if not, there is no need to check the
+          // maxRetries.
+          if (!this.deadQueue) {
+            resolve(JobQueueHelper.prep(job, this.options.raw))
+            return
+          }
 
-        // We are within the retry limit, no action required.
-        if (job.tries <= this.options.maxRetries) {
-          resolve(JobQueueHelper.prep(job, this.options.raw))
-          return
-        }
+          // We are within the retry limit, no action required.
+          if (job.tries <= this.options.maxRetries) {
+            resolve(JobQueueHelper.prep(job, this.options.raw))
+            return
+          }
 
-        // The retry limit has been exceeded, move to the deadQueue, acknowledge
-        // in this queue and and try to return another job from the queue
-        this.deadQueue.create({
-          payload: job.payload,
-          tries: job.tries
-        }).then((deadJob) => {
-          this.ack(job.ack).then((ackJob) => {
-            this.checkout(visibility).then((job) => {
-              resolve(JobQueueHelper.prep(job, this.options.raw))
+          // The retry limit has been exceeded, move to the deadQueue, acknowledge
+          // in this queue and and try to return another job from the queue
+          this.deadQueue.create({
+            payload: job.payload,
+            tries: job.tries
+          })
+            .then((deadJob) => {
+              this.ack(job.ack)
+                .then((ackJob) => {
+                  this.checkout(visibility)
+                    .then((job) => {
+                      resolve(JobQueueHelper.prep(job, this.options.raw))
+                    }, reject)
+                }, reject)
             }, reject)
-          }, reject)
         }, reject)
-      }, reject)
     })
   }
 
@@ -379,9 +384,10 @@ class JobQueue {
         lean: true
       }
 
-      this.queue.findOne(query, null, options).then((job) => {
-        resolve(JobQueueHelper.prep(job, this.options.raw))
-      }, reject)
+      this.queue.findOne(query, null, options)
+        .then((job) => {
+          resolve(JobQueueHelper.prep(job, this.options.raw))
+        }, reject)
     })
   }
 
@@ -441,9 +447,10 @@ class JobQueue {
       //   options.sort = undefined
       // }
 
-      this.queue.findOneAndUpdate(query, update, options).then((result) => {
-        resolve(JobQueueHelper.prep(result, this.options.raw))
-      }, reject)
+      this.queue.findOneAndUpdate(query, update, options)
+        .then((result) => {
+          resolve(JobQueueHelper.prep(result, this.options.raw))
+        }, reject)
     })
   }
 
@@ -486,14 +493,15 @@ class JobQueue {
       //   options.sort = undefined
       // }
 
-      this.queue.findOneAndUpdate(query, update, options).then((result) => {
-        if (result === null) {
-          reject(new Error('Job not found, or visibility window timed out.'))
-          return
-        }
+      this.queue.findOneAndUpdate(query, update, options)
+        .then((result) => {
+          if (result === null) {
+            reject(new Error('Job not found, or visibility window timed out.'))
+            return
+          }
 
-        resolve(JobQueueHelper.prep(result, this.options.raw))
-      }, reject)
+          resolve(JobQueueHelper.prep(result, this.options.raw))
+        }, reject)
     })
   }
 
@@ -531,16 +539,17 @@ class JobQueue {
         }
       }
 
-      this.queue.deleteMany(query).then((result) => {
-        if (!result) {
-          reject(new Error('MongoDB result was empty.'))
-          return
-        }
+      this.queue.deleteMany(query)
+        .then((result) => {
+          if (!result) {
+            reject(new Error('MongoDB result was empty.'))
+            return
+          }
 
-        resolve(result.result.n)
-      }, (err) => {
-        reject(new Error(err))
-      })
+          resolve(result.result.n)
+        }, (err) => {
+          reject(new Error(err))
+        })
     })
   }
 
@@ -559,16 +568,17 @@ class JobQueue {
         return
       }
 
-      this.deadQueue.deleteMany().then((result) => {
-        if (!result) {
-          reject(new Error('MongoDB result was empty.'))
-          return
-        }
+      this.deadQueue.deleteMany()
+        .then((result) => {
+          if (!result) {
+            reject(new Error('MongoDB result was empty.'))
+            return
+          }
 
-        resolve(result.result.n)
-      }, (err) => {
-        reject(new Error(err))
-      })
+          resolve(result.result.n)
+        }, (err) => {
+          reject(new Error(err))
+        })
     })
   }
 
@@ -584,9 +594,10 @@ class JobQueue {
     }
 
     return new Promise((resolve, reject) => {
-      this.queue.find(filter, null, { sort: { _id: 1 }, lean: true }).then((foundJobs) => {
-        resolve(JobQueueHelper.prep(foundJobs, this.options.raw))
-      }, reject)
+      this.queue.find(filter, null, { sort: { _id: 1 }, lean: true })
+        .then((foundJobs) => {
+          resolve(JobQueueHelper.prep(foundJobs, this.options.raw))
+        }, reject)
     })
   }
 
@@ -598,26 +609,28 @@ class JobQueue {
    */
   reset () {
     return new Promise((resolve, reject) => {
-      this.queue.deleteMany().then((queueResult) => {
-        if (!queueResult) {
-          reject(new Error('MongoDB result was empty.'))
-          return
-        }
-
-        if (!this.deadQueue) {
-          resolve(queueResult.result.n)
-          return
-        }
-
-        this.deadQueue.deleteMany().then((deadQueueResult) => {
-          if (!deadQueueResult) {
+      this.queue.deleteMany()
+        .then((queueResult) => {
+          if (!queueResult) {
             reject(new Error('MongoDB result was empty.'))
             return
           }
 
-          resolve(queueResult.result.n + deadQueueResult.result.n)
+          if (!this.deadQueue) {
+            resolve(queueResult.result.n)
+            return
+          }
+
+          this.deadQueue.deleteMany()
+            .then((deadQueueResult) => {
+              if (!deadQueueResult) {
+                reject(new Error('MongoDB result was empty.'))
+                return
+              }
+
+              resolve(queueResult.result.n + deadQueueResult.result.n)
+            }, reject)
         }, reject)
-      }, reject)
     })
   }
 }
