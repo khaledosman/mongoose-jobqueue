@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.12...v1.0.13) (2020-10-08)
+
+
+### Bug Fixes
+
+* update lockfile ([811969f](https://github.com/khaledosman/mongoose-jobqueue/commit/811969f4e73a53f69ed4b16ad1b8d6f7e249e870))
+
 ## [1.0.12](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.11...v1.0.12) (2020-10-08)
 
 
