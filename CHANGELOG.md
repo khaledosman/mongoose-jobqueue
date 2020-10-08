@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.11...v1.0.12) (2020-10-08)
+
+
+### Bug Fixes
+
+* bump mongoose to v5.10.8 ([8900932](https://github.com/khaledosman/mongoose-jobqueue/commit/89009327bfc740d3f31ac66746f1bae7cd590b14))
+
 ## [1.0.11](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.10...v1.0.11) (2020-02-25)
 
 
