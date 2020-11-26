@@ -546,7 +546,7 @@ class JobQueue {
             return
           }
 
-          resolve(result.result.n)
+          resolve(result.n)
         }, (err) => {
           reject(new Error(err))
         })
@@ -575,7 +575,7 @@ class JobQueue {
             return
           }
 
-          resolve(result.result.n)
+          resolve(result.n)
         }, (err) => {
           reject(new Error(err))
         })
@@ -617,7 +617,7 @@ class JobQueue {
           }
 
           if (!this.deadQueue) {
-            resolve(queueResult.result.n)
+            resolve(queueResult.n)
             return
           }
 
@@ -628,7 +628,7 @@ class JobQueue {
                 return
               }
 
-              resolve(queueResult.result.n + deadQueueResult.result.n)
+              resolve(queueResult.n + deadQueueResult.n)
             }, reject)
         }, reject)
     })
