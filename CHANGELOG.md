@@ -1,3 +1,11 @@
+## [1.0.14](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.13...v1.0.14) (2020-12-04)
+
+
+### Bug Fixes
+
+* fix return value of deleteMany mongoose function ([c26099b](https://github.com/khaledosman/mongoose-jobqueue/commit/c26099b45b2644932ad60276e65cd02202803d96))
+* update mongoose to v5.11.3 ([0a9708c](https://github.com/khaledosman/mongoose-jobqueue/commit/0a9708c5cd2930ccc8e595dc83a3af06d05b1c1a))
+
 ## [1.0.13](https://github.com/khaledosman/mongoose-jobqueue/compare/v1.0.12...v1.0.13) (2020-10-08)
 
 
